@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-12 ">
+    <h3>What do you want to edit??</h3>
+      <ul class="nav nav-pills nav-stacked primary">
+        <li class="bg-info" *ngFor="let document of documents" (click)=" onListclick()"><a class=" text-muted" data-toggle="tab" href="#" >{{document.name}}</a></li>
+      </ul>
+  </div>
+</div>
+
+
+
+
+
