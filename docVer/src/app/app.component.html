@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 
-<app-register></app-register>
-<router-outlet></router-outlet>
-=======
+<!-- <app-register></app-register>
+<router-outlet></router-outlet> -->
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -15,11 +13,14 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <app-listof></app-listof>
+      <app-listof (onGenerate)="formNow($event)"></app-listof>
+      
       <hr>
     </div>
     <div class="col-md-6">
-      <app-new-document></app-new-document>
+      <app-new-document *ngIf="formType; else others" [whatForm]="formType" ></app-new-document>
+      <ng-template #others>Which form do you want to generate???</ng-template>
+
     </div>  
 
   </div>
@@ -27,4 +28,3 @@
   
 </div>
 
->>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c

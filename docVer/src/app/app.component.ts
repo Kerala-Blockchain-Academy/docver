@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'docVer';
+  formType;
+
+  formNow(x){
+    this.formType=x.path
+    console.log(this.formType)
+  }
 }

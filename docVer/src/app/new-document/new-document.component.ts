@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-new-document',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-document.component.css']
 })
 export class NewDocumentComponent implements OnInit {
-
+  @Input() whatForm;
   constructor() { }
 
   ngOnInit() {
+  }
+  logme(){
+    console.log(this.whatForm)
   }
 
 }

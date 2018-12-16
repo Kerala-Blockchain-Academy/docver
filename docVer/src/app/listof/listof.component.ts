@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { formlist} from './listof.model'
 
 @Component({
@@ -7,24 +7,25 @@ import { formlist} from './listof.model'
   styleUrls: ['./listof.component.css']
 })
 export class ListofComponent implements OnInit {
-  displayButton=false;
-  displayForm=false;
+
+  @Output() onGenerate = new EventEmitter<formlist>()
+  
   public documents:formlist[]=[
-    new formlist('Something','Someotherthing'),
-    new formlist('Something','Someotherthing'),
-    new formlist('Something','Someotherthing'),
-    new formlist('Something','Someotherthing')
+    new formlist('Birth Certificate','birthForum'),
+    new formlist('Death Certificate','deathForum'),
+    new formlist('Marriage Certificate','marriageForum'),
+    
   ]
 
   constructor() { }
 
   ngOnInit() {
   }
-  onListclick(){
-    this.displayButton=!this.displayButton
-  }
-  onButtonclick(){
-    this.displayForm=!this.displayForm
+  
+
+  generateDoc(whichForm){
+    this.onGenerate.emit(whichForm)
+    
   }
 
 }
