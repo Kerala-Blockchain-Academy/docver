@@ -17,11 +17,12 @@ version: '2.0'
 
 
 services:
-  cookiejar-processor:
-    container_name: cookiejar-processor
+
+  docver-processor:
+    container_name: docVer-processor
     build:
       context: .
-      dockerfile: ./cookiejar_processor/Dockerfile
+      dockerfile: ./docVer_processor/Dockerfile
       args:
         - http_proxy
         - https_proxy
@@ -29,34 +30,21 @@ services:
     depends_on:
       - validator
     volumes:
-      - '.:/project/cookiejar'
+      - '.:/project/docVer'
+
+  front-end:
+    container_name: frontEnd
+    build: ./docVer
+    volumes:
+      - './docVer/dist/docVer:/usr/share/docVer-client'
+      - './docVer/nginx.conf:/etc/nginx/nginx.conf'
+    ports:
+      - '4200:4200'
+    depends_on:
+      - sawtooth-rest-api
 
 
 
-#   cookiejar-client:
-#     container_name: cookiejar-client5
-#     build:
-#       context: .
-#       dockerfile: ./cookie-proj/Dockerfile
-#       args:
-#         - http_proxy
-#         - https_proxy
-#         - no_proxy
-#     environment:
-#       - 'http_proxy=${http_proxy}'
-#       - 'https_proxy=${https_proxy}'
-#       - 'no_proxy=rest-api,validator,${no_proxy}'
-#     volumes:
-#       - './cookie-proj/dist/cookie-proj:/usr/share/nginx/html/cookie-proj'
-#     ports:
-#       - '4200:80'
-#     depends_on:
-#       - sawtooth-rest-api
-#     entrypoint: "bash -c \"sawtooth keygen --force mycookiejar && tail -f /dev/null\""
-#     stop_signal: SIGKILL
-
-
-  
 
   sawtooth-rest-api:
     container_name: rest-api
@@ -73,6 +61,7 @@ services:
         --bind sawtooth-rest-api:8008
 
   settings-tp:
+    container_name: settings
     image: hyperledger/sawtooth-settings-tp:1.0
     depends_on:
       - validator
