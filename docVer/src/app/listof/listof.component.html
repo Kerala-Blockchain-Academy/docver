@@ -1,7 +1,9 @@
 <div class="row">
   <div class="col-md-12 ">
     <h3>What do you want to edit??</h3>
-      <ul class="nav nav-pills nav-stacked primary">
+    
+    <button *ngFor="let document of documents" class="btn btn-primary">{{document.name}}</button>
+      <!-- <ul class="nav nav-pills nav-stacked primary">
         <li class="bg-info" *ngFor="let document of documents">
          <a class="list-group-item clearfix" 
           data-toggle="tab" href="#" >{{document.name}} 
@@ -11,10 +13,11 @@
           </span>
           </a>
         </li>
-        <!-- <app-buttons *ngIf="displayButton"></app-buttons></li> -->
-      </ul>
+         <app-buttons *ngIf="displayButton"></app-buttons></li> -->
+      
   </div>
 </div>
+<app-buttons></app-buttons>
 
 
 
