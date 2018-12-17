@@ -11,6 +11,7 @@ import { ListofComponent } from './listof/listof.component';
 // <<<<<<< HEAD
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { ButtonsComponent } from './buttons/buttons.component';
+import { RouterModule } from "@angular/router";
 // =======
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
@@ -33,7 +34,14 @@ import { ButtonsComponent } from './buttons/buttons.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot([
+        {path: 'docList', component: ListofComponent},
+        {path: 'register', component: RegisterComponent},
+        {path: 'login', component: LoginComponent},
+        {path: '', redirectTo: 'login', pathMatch: 'full'},
+        {path: '**', redirectTo: 'login', pathMatch: 'full'}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
