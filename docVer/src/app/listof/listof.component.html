@@ -1,23 +1,32 @@
-<div class="row">
-  <div class="col-md-12 ">
-    <h3>What do you want to edit??</h3>
-    
-    <button *ngFor="let document of documents" class="btn btn-primary">{{document.name}}</button>
-      <!-- <ul class="nav nav-pills nav-stacked primary">
-        <li class="bg-info" *ngFor="let document of documents">
-         <a class="list-group-item clearfix" 
-          data-toggle="tab" href="#" >{{document.name}} 
-          <span class="pull-right">
-            <button class="btn btn-primary" (click)="generateDoc(document)">Generate</button>
-            <button class="btn btn-primary" (click)="verifyDoc()">Verify</button>
-          </span>
-          </a>
-        </li>
-         <app-buttons *ngIf="displayButton"></app-buttons></li> -->
-      
+
+<table class=" table">
+  <thead>
+    <tr>
+      <th scope="col" >Index</th>
+      <th scope="col" >Document</th>
+      <th scope="col" colspan="2" >Action</th>
+    </tr>
+    <tr *ngFor="let document of documents, let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td > {{ document.name }} </td>
+      <td> <app-buttons [action]= "{action: 'Generate', path: document.path }" ></app-buttons> </td>
+      <td> <app-buttons [action]= "{action: 'Verify', path: document.path }" ></app-buttons> </td>
+    </tr>
+  </thead>
+</table>
+
+<!-- <div class=" container container-fluid">
+  <div class=" row" *ngFor="let document of documents" >
+    <div class=" col-md-2 col-xs-offset-5" >
+      <button class=" btn btn-primary">
+        {{document.name}}
+      </button>
+    </div>
   </div>
-</div>
-<app-buttons></app-buttons>
+</div> -->
+
+
+<!-- <app-buttons></app-buttons> -->
 
 
 

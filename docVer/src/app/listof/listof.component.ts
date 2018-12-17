@@ -1,6 +1,11 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { formlist} from './listof.model'
 
+
+interface listObj {
+  name: String,
+  path: String
+}
 @Component({
   selector: 'app-listof',
   templateUrl: './listof.component.html',
@@ -9,13 +14,17 @@ import { formlist} from './listof.model'
 export class ListofComponent implements OnInit {
 
   @Output() onGenerate = new EventEmitter<formlist>()
-  
-  public documents:formlist[]=[
-    new formlist('Birth Certificate','birthForum'),
-    new formlist('Death Certificate','deathForum'),
-    new formlist('Marriage Certificate','marriageForum'),
-    
+  public documents: listObj[] = [
+    {name: 'Birth Certificate', path: 'birthForum'},
+    {name: 'Death Certificate', path: 'deathForum'},
+    {name: 'Marriage Certificate', path: 'marriageForum'}
   ]
+  // public documents:formlist[]=[
+  //   new formlist('Birth Certificate','birthForum'),
+  //   new formlist('Death Certificate','deathForum'),
+  //   new formlist('Marriage Certificate','marriageForum'),
+    
+  // ]
 
   constructor() { }
 

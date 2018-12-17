@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./new-document.component.css']
 })
 export class NewDocumentComponent implements OnInit {
-  @Input() whatForm;
+  @Input() whatForm: String = "birthForum";
   constructor() { }
 
   ngOnInit() {

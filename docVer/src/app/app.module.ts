@@ -36,6 +36,7 @@ import { RouterModule } from "@angular/router";
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
+        {path:'form', component: NewDocumentComponent},
         {path: 'docList', component: ListofComponent},
         {path: 'register', component: RegisterComponent},
         {path: 'login', component: LoginComponent},
