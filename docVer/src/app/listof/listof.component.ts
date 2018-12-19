@@ -15,9 +15,9 @@ export class ListofComponent implements OnInit {
 
   @Output() onGenerate = new EventEmitter<formlist>()
   public documents: listObj[] = [
-    {name: 'Birth Certificate', path: 'birthForum'},
-    {name: 'Death Certificate', path: 'deathForum'},
-    {name: 'Marriage Certificate', path: 'marriageForum'}
+    {name: 'Birth Certificate', path: 'birthForm'},
+    {name: 'Death Certificate', path: 'deathForm'},
+    {name: 'Marriage Certificate', path: 'marriageForm'}
   ]
   // public documents:formlist[]=[
   //   new formlist('Birth Certificate','birthForum'),

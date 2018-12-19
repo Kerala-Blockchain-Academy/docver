@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule} from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,10 @@ import { ListofComponent } from './listof/listof.component';
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { RouterModule } from "@angular/router";
+import { BirthFormComponent } from './forms/birth-form/birth-form.component';
+import { DeathFormComponent } from './forms/death-form/death-form.component';
+import { MarriageFormComponent } from './forms/marriage-form/marriage-form.component';
+import { FormsComponent } from './forms/forms.component';
 // =======
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
@@ -28,15 +33,22 @@ import { RouterModule } from "@angular/router";
 // <<<<<<< HEAD
     RegisterComponent,
 // =======
-    ListofComponent
+    ListofComponent,
+BirthFormComponent,
+DeathFormComponent,
+MarriageFormComponent,
+FormsComponent
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
   ],
   imports: [
+    FormsModule,  
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
-        {path:'form', component: NewDocumentComponent},
+        {path:':action/marriageForm', component: MarriageFormComponent},
+        {path:':action/deathForm', component: DeathFormComponent},
+        {path:':action/birthForm', component: BirthFormComponent},
         {path: 'docList', component: ListofComponent},
         {path: 'register', component: RegisterComponent},
         {path: 'login', component: LoginComponent},

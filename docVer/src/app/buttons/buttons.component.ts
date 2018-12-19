@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Router } from '@angular/router'
 
 interface buttonAction{
@@ -13,6 +13,7 @@ interface buttonAction{
 export class ButtonsComponent implements OnInit { 
 
   @Input() action:buttonAction;
+  @Output() 
   private myStyle;
 
   constructor(private router: Router) { }
@@ -26,7 +27,8 @@ export class ButtonsComponent implements OnInit {
   buttonClick(event):void {
     event.preventDefault();
     console.log(this.action);
-    this.router.navigate(['form']);
+
+    this.router.navigate([ this.action.action+'/'+this.action.path]);
   }
 
   changeStyle(): void {
