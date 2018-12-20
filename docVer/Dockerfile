@@ -1,11 +1,28 @@
 
 
-FROM nginx:stable
+FROM node:lts-jessie
 
-RUN mkdir -p /usr/share/docVer \
-    && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -y curl nano
+RUN apt-get update \
+    && apt-get install --no-install-recommends --no-install-suggests -y curl nano \
+    && apt-get install -y nginx \
+    && apt-get install net-tools
 
-COPY ./dist/docVer /usr/share/docVer
+RUN npm install -g @angular/cli \
+    && mkdir -p /usr/share/docVer/src
 
-COPY nginx.conf /etc/nginx/nginx.conf
+
+WORKDIR /usr/share/docVer
+
+COPY ./e2e .
+COPY ./angular.json .
+COPY ./nginx.conf .
+COPY ./package.json .
+COPY ./tsconfig.json .
+
+RUN ls \
+    && npm install
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
+
+EXPOSE 80 4200

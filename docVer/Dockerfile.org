@@ -1,0 +1,31 @@
+
+
+FROM nginx:stable
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends --no-install-suggests -y curl nano \
+    && apt-get install -y -q --no-install-recommends \
+        apt-utils \
+    && apt-get install -y -q \
+        apt-transport-https \
+        ca-certificates \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# COPY ./dist/docVer /usr/share/docVer
+
+# COPY nginx.conf /etc/nginx/nginx.conf
+RUN apt-get install -y gnupg
+# RUN apt-get install -y --no-install-recommends apt-utils
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs 
+    # && node -v \
+    # && npm -v
+
+# RUN npm install -g @angular/cli
+
+# WORKDIR /usr/share/docVer
+
+# RUN npm install \
+#     && ng build
+

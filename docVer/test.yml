@@ -1,0 +1,16 @@
+version: '2.0'
+
+
+services:
+  front-end:
+    container_name: frontEnd
+    build: .
+    ports:
+      - '4200:4200'
+      - '80:80'
+    volumes:
+      - './src:/usr/share/docVer/src'
+      # - './nginx.conf:/etc/nginx/'
+
+    command: bash -c "ls && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    # command: ls
