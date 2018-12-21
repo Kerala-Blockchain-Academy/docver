@@ -5,5 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class SawtoothService {
 
+  logData(action,values){
+    console.log(action,JSON.stringify(values),"services")
+  }
   constructor() { }
 }
