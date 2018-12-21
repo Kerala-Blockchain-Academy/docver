@@ -1,18 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms'
+import { FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 // <<<<<<< HEAD
 import { RegisterComponent } from './register/register.component';
-//=======
+// =======
 import { ListofComponent } from './listof/listof.component';
 // <<<<<<< HEAD
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { ButtonsComponent } from './buttons/buttons.component';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 import { BirthFormComponent } from './forms/birth-form/birth-form.component';
 import { DeathFormComponent } from './forms/death-form/death-form.component';
 import { MarriageFormComponent } from './forms/marriage-form/marriage-form.component';
@@ -42,13 +42,13 @@ FormsComponent
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
   ],
   imports: [
-    FormsModule,  
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
-        {path:':action/marriageForm', component: MarriageFormComponent},
-        {path:':action/deathForm', component: DeathFormComponent},
-        {path:':action/birthForm', component: BirthFormComponent},
+        {path: ':action/marriageForm', component: MarriageFormComponent},
+        {path: ':action/deathForm', component: DeathFormComponent},
+        {path: ':action/birthForm', component: BirthFormComponent},
         {path: 'docList', component: ListofComponent},
         {path: 'register', component: RegisterComponent},
         {path: 'login', component: LoginComponent},

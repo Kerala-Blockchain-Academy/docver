@@ -4,8 +4,7 @@ FROM node:lts-jessie
 
 RUN apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y curl nano \
-    && apt-get install -y nginx \
-    && apt-get install net-tools
+    && apt-get install -y nginx
 
 RUN npm install -g @angular/cli \
     && mkdir -p /usr/share/docVer/src
