@@ -160,8 +160,12 @@ export class SawtoothService {
 
   private getEncodedPayload(action, values): any {
     // Complete here
-    const payload = action + ',' + values;
-    const encodedPayload = this.encoder.encode(payload);
+    const payload = {
+      action: action,
+      payload: values
+    };
+    const stringPayload = JSON.stringify(payload);
+    const encodedPayload = this.encoder.encode(stringPayload);
     console.log('before', this.address);
     console.log('value', values);
 
