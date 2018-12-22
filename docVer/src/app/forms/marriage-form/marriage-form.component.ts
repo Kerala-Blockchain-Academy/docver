@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-marriage-form',
@@ -6,13 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./marriage-form.component.css']
 })
 export class MarriageFormComponent implements OnInit {
+  action;
 
-  constructor() { }
+  constructor(private route:ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params
+      .subscribe(params=>{
+        this.action=params['action']
+
+      })
   }
 
   onSubmit(form){
-    console.log(form)
+    console.log(this.action,',',form.value)
   }
 }

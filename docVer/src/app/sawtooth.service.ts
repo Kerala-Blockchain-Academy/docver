@@ -15,6 +15,12 @@ import { Buffer } from 'buffer/';
 
 export class SawtoothService {
 
+<<<<<<< HEAD
+  logData(action,values){
+    console.log(action,JSON.stringify(values),"services")
+  }
+  constructor() { }
+=======
   private signer: any;
   private publicKey: any;
   private privateKey: any;
@@ -281,4 +287,5 @@ export class SawtoothService {
 
   /*-------END Creating transactions & batches-----------*/
 
+>>>>>>> 5af1c8371d7b6060a69c0a4bf79325cdfd3c3abc
 }
