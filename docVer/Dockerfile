@@ -17,6 +17,7 @@ COPY ./angular.json .
 COPY ./nginx.conf .
 COPY ./package.json .
 COPY ./tsconfig.json .
+COPY ./patch.js .
 
 RUN ls \
     && npm install

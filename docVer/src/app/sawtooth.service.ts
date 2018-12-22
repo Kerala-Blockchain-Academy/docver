@@ -15,12 +15,6 @@ import { Buffer } from 'buffer/';
 
 export class SawtoothService {
 
-<<<<<<< HEAD
-  logData(action,values){
-    console.log(action,JSON.stringify(values),"services")
-  }
-  constructor() { }
-=======
   private signer: any;
   private publicKey: any;
   private privateKey: any;
@@ -82,19 +76,19 @@ export class SawtoothService {
     const batchList = this.getBatchList(transactionsList);
 
     // Send the batch to REST API
-    // await this.sendToRestAPI(batchList)
-    //   .then((resp) => {
-    //     console.log('sendToRestAPI response', resp);
-    //     return {
-    //       payload: payload,
-    //       transactionList : transactionsList,
-    //       batchList: batchList,
-    //       response: resp  };
-    //   })
-    //   .catch((error) => {
-    //     console.log('error here', error);
-    //     return error;
-    //   });
+    await this.sendToRestAPI(batchList)
+      .then((resp) => {
+        console.log('sendToRestAPI response', resp);
+        return {
+          payload: payload,
+          transactionList : transactionsList,
+          batchList: batchList,
+          response: resp  };
+      })
+      .catch((error) => {
+        console.log('error here', error);
+        return error;
+      });
   }
 
   // Count button will call this function directly
@@ -174,6 +168,7 @@ export class SawtoothService {
     const encodedPayload = this.encoder.encode(stringPayload);
     console.log('before', this.address);
     console.log('value', values);
+    console.log('payload', stringPayload);
 
     const valueJSON = JSON.parse(values);
     const valueKeys = Object.keys(valueJSON);
@@ -287,5 +282,4 @@ export class SawtoothService {
 
   /*-------END Creating transactions & batches-----------*/
 
->>>>>>> 5af1c8371d7b6060a69c0a4bf79325cdfd3c3abc
 }
