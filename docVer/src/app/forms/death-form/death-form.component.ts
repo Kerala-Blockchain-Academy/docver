@@ -8,14 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DeathFormComponent implements OnInit {
   action
+  href
   constructor(private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params
-    .subscribe(params=>{
-      this.action=params['action']
-
-    })
+    this.href=this.route.url
+    this.action=this.href.value[0].path
+    console.log(this.action)
   }
   onSubmit(form){
     console.log(this.action,",",form.value)

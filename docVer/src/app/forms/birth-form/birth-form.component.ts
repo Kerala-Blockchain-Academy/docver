@@ -11,13 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 export class BirthFormComponent implements OnInit {
 
   private action: String;
+  private href;
 
   constructor(private addBlock: SawtoothService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.action = params['action'];
-    });
+    this.href=this.route.url
+    this.action=this.href.value[0].path
+    
+    // this.route.params.subscribe(params => {
+    //   this.action = params['action'];
+    // });
   }
 
 
