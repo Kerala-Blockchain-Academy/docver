@@ -11,4 +11,4 @@ services:
       - '80:80'
     volumes:
       - './src:/usr/share/docVer/src'
-    command: bash -c "ls && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    command: bash -c "ls && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"

@@ -39,9 +39,8 @@ class DocVerHandler extends TransactionHandler {
 
       const payloadJson = JSON.parse(payload);
 
-      const stateAddress = this.getStateAddress(payloadJson);
-
       if (action === 'Generate') {
+        const stateAddress = this.getStateAddress(payloadJson);
         return stateStore.getState([stateAddress])
           .then((stateMapping) => {
             const currentState = stateMapping[stateAddress];
@@ -63,7 +62,41 @@ class DocVerHandler extends TransactionHandler {
             throw error;
           });
       }
-      return new InvalidTransaction(`Action must be Generate or veryfy not ${action}`);
+      if (action === 'Search') {
+        const stateAddress = this.getStateAddress(payloadJson);
+        return stateStore.getState([stateAddress])
+          .then((stateMapping) => {
+            const currentState = stateMapping[stateAddress];
+            if (currentState === '' || currentState == null) {
+              const errData = {
+                responce: 'No such document exist!! Check the data entered',
+              };
+              const errString = JSON.stringify(errData);
+              const error = new InvalidTransaction(errString);
+              throw error;
+            }
+            const transactionId = decoder.decode(currentState);
+            return transactionId;
+          });
+      }
+      if (action === 'Veryiy') {
+        const stateAddress = payloadJson.stateAddress;
+        return stateStore.getState([stateAddress])
+          .then((stateMapping) => {
+            const currentState = stateMapping[stateAddress];
+            if (currentState === '' || currentState == null) {
+              const errData = {
+                responce: 'Invalid State address',
+              };
+              const errString = JSON.stringify(errData);
+              const error = new InvalidTransaction(errString);
+              throw error;
+            }
+            const transactionId = decoder.decode(currentState);
+            return transactionId;
+          });
+      }
+      return new InvalidTransaction(`Action must be Generate, Search or verify not ${action}`);
     }
     return new InvalidTransaction('Invalid Payload');
   }
