@@ -1,4 +1,9 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+  <div class="input-group date">
+      <label for="dateOfBirth">Date Of Birth</label>
+      <input name="dateOfBirth" class="form-control" type="date" ngModel required>
+  </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Name of Child</label>
     <input type="text" class="form-control" name="nameOfChild" aria-describedby="emailHelp"

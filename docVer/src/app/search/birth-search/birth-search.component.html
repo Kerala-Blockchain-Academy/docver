@@ -1,0 +1,50 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <div class="input-group date">
+        <label for="dateOfBirth">Date Of Birth</label>
+        <input name="dateOfBirth" class="form-control" type="date" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Name of Child</label>
+      <input type="text" class="form-control" name="nameOfChild" aria-describedby="emailHelp"
+       ngModel
+       required
+       pattern="^[a-zA-Z\. ]*$">
+      
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Name of father</label>
+      <input type="text" class="form-control" name="nameOfFather" ngModel  
+      required
+      pattern="^[a-zA-Z\. ]*$">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Name Of mother</label>
+      <input type="text" class="form-control" name="nameOfMother" ngModel
+       required
+       pattern="^[a-zA-Z\. ]*$">
+    </div>
+    <div class="form-group">
+        <label for="sel1">Sex</label>
+        <select class="form-control" name="sex" ngModel required>
+          <option value="" selected disabled hidden>Click Here to choose</option>
+          <option  value="male">Male</option>
+          <option value="female">Female</option>
+          
+        </select>
+  
+      </div>
+  
+
+      
+
+  
+    
+    <br>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+    </div>
+   
+    
+  </form>

@@ -17,6 +17,9 @@ import { BirthFormComponent } from './forms/birth-form/birth-form.component';
 import { DeathFormComponent } from './forms/death-form/death-form.component';
 import { MarriageFormComponent } from './forms/marriage-form/marriage-form.component';
 import { FormsComponent } from './forms/forms.component';
+import { MarriageSearchComponent } from './search/marriage-search/marriage-search.component';
+import { BirthSearchComponent } from './search/birth-search/birth-search.component';
+import { DeathSearchComponent } from './search/death-search/death-search.component';
 // =======
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
@@ -37,6 +40,9 @@ import { FormsComponent } from './forms/forms.component';
 BirthFormComponent,
 DeathFormComponent,
 MarriageFormComponent,
+BirthSearchComponent,
+MarriageSearchComponent,
+DeathSearchComponent,
 FormsComponent
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
@@ -46,9 +52,13 @@ FormsComponent
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
-        {path: ':action/marriageForm', component: MarriageFormComponent},
-        {path: ':action/deathForm', component: DeathFormComponent},
-        {path: ':action/birthForm', component: BirthFormComponent},
+        {path: 'Generate/marriageForm', component: MarriageFormComponent},
+        {path: 'Generate/deathForm', component: DeathFormComponent},
+        {path: 'Generate/birthForm', component: BirthFormComponent},
+        {path:'Search/birthForm' , component:BirthSearchComponent},
+        {path:'Search/deathForm' , component:DeathSearchComponent},
+        {path:'Search/marriageForm' , component:MarriageSearchComponent},
+        
         {path: 'docList', component: ListofComponent},
         {path: 'register', component: RegisterComponent},
         {path: 'login', component: LoginComponent},

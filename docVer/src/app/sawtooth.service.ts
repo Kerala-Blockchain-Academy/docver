@@ -57,6 +57,7 @@ export class SawtoothService {
     this.address = null;
     return true;
   }
+  
 
   // public setLogin(keyFileName, pkData): boolean {
   //   return this.setCurrentTransactor(pkData);
@@ -278,7 +279,9 @@ export class SawtoothService {
     }).finish();
 
     return batchListBytes;
+
   }
+
 
   /*-------END Creating transactions & batches-----------*/
 

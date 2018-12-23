@@ -1,0 +1,59 @@
+<form action="" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="input-group date">
+        <label for="regDate">Date of Marriage</label>
+        <input name="regDate" class="form-control" type="date" ngModel required >
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="nameOfHusband">Name of husband</label>
+      <input class="form-control" type="text" name="nameOfHusband"ngModel pattern="^[a-zA-Z\.]*$">
+    </div>
+  
+    <div class="input-group date">
+      <label for="husbandDOB">Date of birth of Husband</label>
+      <input name="husbandDOB" class="form-control" type="date" ngModel required>
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="proofOfAgeHus">Age proof of  Husband(Govt issued identification certificates)</label>
+      <input class="form-control" type="number" name="poaHus" ngModel >
+    </div>
+    
+  
+    <div class="form-group">
+        <label for="nameOfWife">Name of wife</label>
+        <input class="form-control" type="text" name="nameOfWife" ngModel pattern="^[a-zA-Z\.]*$">
+    </div>
+  
+  
+    <div class="input-group date">
+          <label for="wifeDOB">Date of birth of Wife</label>
+          <input name="wifeDOB" class="form-control" type="date" ngModel required>
+    </div>
+    <br>
+    <div class="form-group">
+          <label for="proofOfAgeWife">Age proof of Wife(Govt issued identification certificates)</label>
+          <input class="form-control" type="number" name="poaWif" ngModel >
+    </div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+    </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  </form>
