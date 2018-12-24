@@ -11,7 +11,7 @@ export class BirthSearchComponent implements OnInit {
   private action
   private address
 
-  constructor( private addBlock:SawtoothService,private route: ActivatedRoute) { }
+  constructor( private search:SawtoothService,private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -27,12 +27,11 @@ export class BirthSearchComponent implements OnInit {
     data['imp'] = imp;
     data['docType'] = docType;
     const strData = JSON.stringify(data);
-    const tmp = JSON.parse(strData);
-    const keys = Object.keys(tmp);
-    console.log(tmp[keys[imp[0]]]);
-    this.addBlock.sendData(this.action, strData);
+    // this.search.sendData(this.action, strData);
+    this.search.search(strData);
+
   }
-  
+
 
 
   

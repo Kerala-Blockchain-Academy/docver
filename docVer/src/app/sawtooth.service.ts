@@ -5,6 +5,7 @@ import * as protobuf from 'sawtooth-sdk/protobuf';
 import {Secp256k1PrivateKey} from 'sawtooth-sdk/signing/secp256k1';
 import { TextEncoder, TextDecoder } from 'text-encoding/lib/encoding';
 import { Buffer } from 'buffer/';
+import { Http } from '@angular/http'
 
 
 
@@ -26,21 +27,12 @@ export class SawtoothService {
   private FAMILY_VERSION = '1.0';
 
   private encoder = new TextEncoder('utf8');
+  private decoder = new TextDecoder('utf8');
   private REST_API_BASE_URL = 'http://localhost:4200/api';
   // private REST_API_BASE_URL = 'http://sawtooth-rest-api:8008';
   private privateKeyHex = '76ad89d0ff29b0267fba72ea8d40ef7975e10f8acde8d50d20cdf56ba9599c5e';
 
-
-  /*
-  Function to complete
-    - setCurrentTransactor
-    - getEncodedPayload
-    - getTransactionsList
-    - getBatchList
-    - getState
-    - postBatchList
-  */
-  constructor() {
+  constructor(private http :Http ) {
     // Inside the setCurrentTransactor function:
     // Set the this.signer property
     // Set the this.publicKey property
@@ -57,11 +49,6 @@ export class SawtoothService {
     this.address = null;
     return true;
   }
-  
-
-  // public setLogin(keyFileName, pkData): boolean {
-  //   return this.setCurrentTransactor(pkData);
-  // }
 
   private hash(v) {
     return createHash('sha512').update(v).digest('hex');
@@ -92,25 +79,27 @@ export class SawtoothService {
       });
   }
 
+  public search(data) {
+    this.address = this.getAddress(data);
+    const state = this.getState(this.address).subscribe((data) => {
+      const dataJson = data.json();
+      const decodedData = atob(dataJson.data);
+      const transaction = this.getTransaction(decodedData).subscribe((transaction) => {
+        const transactionJson = transaction.json().data;
+        const payload = transactionJson.payload;
+        const payloadDecode = atob(payload);
+        const payloadJson = JSON.parse(payloadDecode);
+        const payloadData = payloadJson.payload;
+        console.log(payloadData);
+      });
+    });
+  }
+
   // Count button will call this function directly
   // For Count button calls, 'batchListBytes' will be null
   public async sendToRestAPI(batchListBytes): Promise<any> {
-    if (batchListBytes == null) {
-      // GET state
-      return this.getState(this.address)
-        .then((response) => {
-          return response.json();
-        })
-        .then((responseJson) => {
-          return this.getDecodedData(responseJson);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
       // POST batch list
       return this.postBatchList(batchListBytes);
-    }
   }
 
   private getDecodedData(responseJSON): string {
@@ -121,16 +110,12 @@ export class SawtoothService {
 
   /*---------Calls to REST API---------------*/
   // Get state of address from rest api
-  private async getState(address): Promise<any> {
-    // Complete here
-    return window.fetch('http://rest-api/state/' + address, {
-      method: 'GET'
-    }).then((getResp) => {
-      return getResp.json();
-    }).then((getRespJson) => {
-      const data = getRespJson.data;
-    });
+  private getState(address) {
+    return this.http.get(`${this.REST_API_BASE_URL}/state/${address}`);
+  }
 
+  private getTransaction(transactionId) {
+    return this.http.get(`${this.REST_API_BASE_URL}/transactions/${transactionId}`)
   }
 
   // Post batch list to rest api
@@ -171,25 +156,7 @@ export class SawtoothService {
     console.log('value', values);
     console.log('payload', stringPayload);
 
-    const valueJSON = JSON.parse(values);
-    const valueKeys = Object.keys(valueJSON);
-    const important = valueJSON['imp'];
-    const docType = valueJSON['docType'];
-    const length = important.length;
-    const hashLength = Math.floor(58 / length);
-    let userHash: String = '';
-    important.forEach(element => {
-      const impValue = valueJSON[valueKeys[element]];
-      const tmp = this.hash(impValue).substr(0, hashLength);
-      userHash += tmp;
-      console.log(valueKeys[element], ':', impValue, ';', tmp, '->', userHash);
-    });
-
-    while (userHash.length < 58) {
-      userHash += '0';
-    }
-
-    this.address = this.hash(this.FAMILY_NAME).substr(0, 6) + userHash + this.hash(docType).substr(0, 6) ;
+    this.address = this.getAddress(values);
     console.log('after', this.address, ';', this.address.length);
 
     console.log(' payload :', payload, 'enc' , encodedPayload);
@@ -220,6 +187,30 @@ export class SawtoothService {
   /*------END Signing & Addressing---------------------*/
 
 
+  // creating state address
+private getAddress(values) {
+  const valueJSON = JSON.parse(values);
+    const valueKeys = Object.keys(valueJSON);
+    const important = valueJSON['imp'];
+    const docType = valueJSON['docType'];
+    const length = important.length;
+    const hashLength = Math.floor(58 / length);
+    let userHash: String = '';
+    important.forEach(element => {
+      const impValue = valueJSON[valueKeys[element]];
+      const tmp = this.hash(impValue).substr(0, hashLength);
+      userHash += tmp;
+      console.log(valueKeys[element], ':', impValue, ';', tmp, '->', userHash);
+    });
+
+    while (userHash.length < 58) {
+      userHash += '0';
+    }
+
+    this.address = this.hash(this.FAMILY_NAME).substr(0, 6) + userHash + this.hash(docType).substr(0, 6) ;
+    console.log('after', this.address, ';', this.address.length);
+    return this.address;
+}
 
 
   /*-------------Creating transactions & batches-------*/

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,6 +52,7 @@ FormsComponent
     FormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpModule,
     RouterModule.forRoot([
         {path: 'Generate/marriageForm', component: MarriageFormComponent},
         {path: 'Generate/deathForm', component: DeathFormComponent},
