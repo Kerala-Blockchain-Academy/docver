@@ -13,7 +13,7 @@ interface buttonAction{
 export class ButtonsComponent implements OnInit { 
 
   @Input() action:buttonAction;
-  @Output() 
+  @Output()
   private myStyle;
 
   constructor(private router: Router) { }
@@ -28,7 +28,7 @@ export class ButtonsComponent implements OnInit {
     event.preventDefault();
     console.log(this.action);
 
-    this.router.navigate([ this.action.action+'/'+this.action.path]);
+    this.router.navigate([ this.action.action + '/' + this.action.path]);
   }
 
   changeStyle(): void {

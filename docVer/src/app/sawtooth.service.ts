@@ -7,17 +7,11 @@ import { TextEncoder, TextDecoder } from 'text-encoding/lib/encoding';
 import { Buffer } from 'buffer/';
 import { Http } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { delay } from 'q';
+import { MessageJson, PostResp, StateResponce,  TransactionStatus, Transaction, Payload, TpRequest } from './model';
+import { Router } from '@angular/router';
 
 
-export interface PostResp {
-  link: String;
-}
-export interface StateResponce {
-  data: string;
-}
-interface TransactionResponce {
-  payload: string;
-}
 @Injectable({
   providedIn: 'root'
 })
@@ -39,8 +33,9 @@ export class SawtoothService {
   private REST_API_BASE_URL = 'http://localhost:4200/api';
   // private REST_API_BASE_URL = 'http://sawtooth-rest-api:8008';
   private privateKeyHex = '76ad89d0ff29b0267fba72ea8d40ef7975e10f8acde8d50d20cdf56ba9599c5e';
+  public payloadData: Payload;
 
-  constructor(private http: HttpClient ) {
+  constructor(private http: HttpClient, private router: Router ) {
     // Inside the setCurrentTransactor function:
     // Set the this.signer property
     // Set the this.publicKey property
@@ -87,20 +82,31 @@ export class SawtoothService {
       });
   }
 
-  public search(data) {
+  public search(data, path) {
     this.address = this.getAddress(data);
-    const state = this.getState(this.address).subscribe((data: StateResponce) => {
-      console.log(data);
-      const decodedData = atob(data.data);
-      const transaction = this.getTransaction(decodedData).subscribe((transaction) => {
-        console.log('transaction', transaction);
-        // const transactionJson = transaction.json().data;
-        // const payload = transaction;
-        // const payloadDecode = atob(payload);
-        // const payloadJson = JSON.parse(payloadDecode);
-        // const payloadData = payloadJson.payload;
-        // console.log(payloadData);
-      });
+    const state = this.getState(this.address).subscribe((stateResp: StateResponce) => {
+      console.log(stateResp);
+      const decodedData = atob(stateResp.data);
+      const transaction = this.getTransaction(decodedData).subscribe(
+        (transactionResp: Transaction) => {
+          console.log('transaction', transactionResp);
+          const transactionData = transactionResp.data;
+          const payload = transactionData.payload;
+          console.log(payload);
+          const payloadDecode = atob(payload);
+          const tpRequest: TpRequest = JSON.parse(payloadDecode);
+          console.log(tpRequest);
+          const payloadJson = JSON.parse(tpRequest.payload);
+          this.payloadData = payloadJson;
+          console.log(this.payloadData);
+        },
+        (error) => {
+          console.log(error);
+         },
+        () => {
+          this.router.navigate([path]);
+        }
+      );
     });
   }
 
@@ -124,17 +130,41 @@ export class SawtoothService {
   }
 
   private getTransaction(transactionId) {
-    return this.http.get<TransactionResponce>(`${this.REST_API_BASE_URL}/transactions/${transactionId}`);
+    return this.http.get<Transaction>(`${this.REST_API_BASE_URL}/transactions/${transactionId}`);
   }
 
   private sendBatchList(data) {
-    const dataArray = JSON.stringify(data);
-    console.log(typeof(dataArray), dataArray);
-    return this.http.post(`${this.REST_API_BASE_URL}/batches`, dataArray , {
-      headers: new HttpHeaders({
-        'Content-Type' : 'application/octet-stream'
-      })
-    });
+    data = data.slice(0, data.length);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/octet-stream' })
+    };
+    console.log(typeof(data), data);
+    return this.http.post<PostResp>(`${this.REST_API_BASE_URL}/batches`, data.buffer , httpOptions);
+  }
+
+  private getStatus(response: PostResp) {
+    const link = response.link;
+        const tmp = link.split('/');
+        console.log(tmp);
+        const getResp = this.http.get<TransactionStatus>(`${this.REST_API_BASE_URL}/${tmp[3]}`);
+        getResp.subscribe((transactionStatus: TransactionStatus) => {
+          console.log(transactionStatus.data);
+          if (transactionStatus.data[0].status === 'PENDING') {
+            delay(300);
+            this.getStatus(response);
+          }
+          if (transactionStatus.data[0].status === 'COMMITTED') {
+            return 'COMMITTED';
+          }
+          if (transactionStatus.data[0].status === 'INVALID') {
+          console.log(transactionStatus.data[0].invalid_transactions[0]);
+          const message = transactionStatus.data[0].invalid_transactions[0].message;
+          const messageJson: MessageJson = JSON.parse(message);
+          console.log(messageJson.response);
+          return messageJson.response;
+          }
+          return 'UNKNOWN';
+        });
   }
 
   // Post batch list to rest api
@@ -162,9 +192,9 @@ export class SawtoothService {
     const payload = this.getEncodedPayload(action, value);
     const transactionsList = this.getTransactionsList(payload);
     const batchListBytes = this.getBatchList(transactionsList);
-    this.sendBatchList(batchListBytes)
+    return this.sendBatchList(batchListBytes)
       .subscribe((response) => {
-        console.log(response);
+        return this.getStatus(response);
       });
   }
 

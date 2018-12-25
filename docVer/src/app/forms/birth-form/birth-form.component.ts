@@ -36,8 +36,8 @@ export class BirthFormComponent implements OnInit {
     // const tmp = JSON.parse(strData);
     // const keys = Object.keys(tmp);
     // console.log(tmp[keys[imp[0]]]);
-    this.addBlock.sendData(this.action, strData);
-    // this.addBlock.register(this.action, strData);
+    // this.addBlock.sendData(this.action, strData);
+    this.addBlock.register(this.action, strData);
   }
 
 }

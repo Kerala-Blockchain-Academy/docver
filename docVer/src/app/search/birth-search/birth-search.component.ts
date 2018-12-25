@@ -27,8 +27,8 @@ export class BirthSearchComponent implements OnInit {
     data['imp'] = imp;
     data['docType'] = docType;
     const strData = JSON.stringify(data);
-    // this.search.sendData(this.action, strData);
-    this.search.search(strData);
+    const path = '';
+    this.search.search(strData, path);
 
   }
 

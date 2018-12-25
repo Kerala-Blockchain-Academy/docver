@@ -1,0 +1,22 @@
+{
+    "data": {
+      "header": {
+        "batcher_public_key": "0242d47ff2d49dc66a5ba76050b513c28d2eb8a96a0994256da94d6d5e5fd206c4",
+        "dependencies": [],
+        "family_name": "docVer",
+        "family_version": "1.0",
+        "inputs": [
+          "2690bc343eaa51fb7c62940fef32c62940fef32c62940fef32d2e93658d8b000db6d18"
+        ],
+        "nonce": "240.96851951153252",
+        "outputs": [
+          "2690bc343eaa51fb7c62940fef32c62940fef32c62940fef32d2e93658d8b000db6d18"
+        ],
+        "payload_sha512": "dd2d7545d8e4772cfd76620ab12f3575105885fa1e3b1fc3b65cc6074f8cae1f5ab899924627c1f4a4e485ee758c5343a628fabdcaf2b7a1896d2ab77be50ff7",
+        "signer_public_key": "0242d47ff2d49dc66a5ba76050b513c28d2eb8a96a0994256da94d6d5e5fd206c4"
+      },
+      "header_signature": "9063ddccce2b189fc0ee3b9faece2b2503930b2e1ba2d766ab3a61f1e970131444e96d782db59ae64dbb8a8a12a1fdf9d1389db521582702a44652af8c73ea8f",
+      "payload": "eyJhY3Rpb24iOiJHZW5lcmF0ZSIsInBheWxvYWQiOiJ7XCJkYXRlT2ZCaXJ0aFwiOlwiMjAxOC0xMi0yNVwiLFwibmFtZU9mQ2hpbGRcIjpcIkFiaGlyYW0gVCBTXCIsXCJuYW1lT2ZGYXRoZXJcIjpcIkFiaGlyYW0gVCBTXCIsXCJuYW1lT2ZNb3RoZXJcIjpcIkFiaGlyYW0gVCBTXCIsXCJzZXhcIjpcIm1hbGVcIixcInJlZ0RhdGVcIjpcIjIwMTgtMTItMjVcIixcInBlcm1hZGRyZXNzXCI6XCJBcmFtYW0sRHIgR1IgUm9hZFxcbk9vcnV0dHVrYWxhLE5leXlhdHRpbmthcmEgUE9cIixcImltcFwiOlswLDEsMiwzLDRdLFwiZG9jVHlwZVwiOlwiYmlydGhGb3JtXCJ9In0="
+    },
+    "link": "http://localhost:8008/transactions/9063ddccce2b189fc0ee3b9faece2b2503930b2e1ba2d766ab3a61f1e970131444e96d782db59ae64dbb8a8a12a1fdf9d1389db521582702a44652af8c73ea8f"
+  }
