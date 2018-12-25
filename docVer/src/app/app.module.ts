@@ -21,6 +21,7 @@ import { FormsComponent } from './forms/forms.component';
 import { MarriageSearchComponent } from './search/marriage-search/marriage-search.component';
 import { BirthSearchComponent } from './search/birth-search/birth-search.component';
 import { DeathSearchComponent } from './search/death-search/death-search.component';
+import { HttpClientModule } from '@angular/common/http';
 // =======
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
 // >>>>>>> 9d92655fcb984ba04d5db0e1674996095a96060a
@@ -53,6 +54,7 @@ FormsComponent
     BrowserModule,
     AppRoutingModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot([
         {path: 'Generate/marriageForm', component: MarriageFormComponent},
         {path: 'Generate/deathForm', component: DeathFormComponent},

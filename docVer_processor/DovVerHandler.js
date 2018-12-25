@@ -53,7 +53,7 @@ class DocVerHandler extends TransactionHandler {
                 .then(setStateReturn => setStateReturn);
             }
             const errData = {
-              responce: 'Document alredy exist',
+              response: 'Document alredy exist',
               address: stateAddress,
               signer: signerAddress,
             };

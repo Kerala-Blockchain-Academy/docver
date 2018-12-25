@@ -5,11 +5,19 @@ import * as protobuf from 'sawtooth-sdk/protobuf';
 import {Secp256k1PrivateKey} from 'sawtooth-sdk/signing/secp256k1';
 import { TextEncoder, TextDecoder } from 'text-encoding/lib/encoding';
 import { Buffer } from 'buffer/';
-import { Http } from '@angular/http'
+import { Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
-
-
+export interface PostResp {
+  link: String;
+}
+export interface StateResponce {
+  data: string;
+}
+interface TransactionResponce {
+  payload: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +40,7 @@ export class SawtoothService {
   // private REST_API_BASE_URL = 'http://sawtooth-rest-api:8008';
   private privateKeyHex = '76ad89d0ff29b0267fba72ea8d40ef7975e10f8acde8d50d20cdf56ba9599c5e';
 
-  constructor(private http :Http ) {
+  constructor(private http: HttpClient ) {
     // Inside the setCurrentTransactor function:
     // Set the this.signer property
     // Set the this.publicKey property
@@ -81,16 +89,17 @@ export class SawtoothService {
 
   public search(data) {
     this.address = this.getAddress(data);
-    const state = this.getState(this.address).subscribe((data) => {
-      const dataJson = data.json();
-      const decodedData = atob(dataJson.data);
+    const state = this.getState(this.address).subscribe((data: StateResponce) => {
+      console.log(data);
+      const decodedData = atob(data.data);
       const transaction = this.getTransaction(decodedData).subscribe((transaction) => {
-        const transactionJson = transaction.json().data;
-        const payload = transactionJson.payload;
-        const payloadDecode = atob(payload);
-        const payloadJson = JSON.parse(payloadDecode);
-        const payloadData = payloadJson.payload;
-        console.log(payloadData);
+        console.log('transaction', transaction);
+        // const transactionJson = transaction.json().data;
+        // const payload = transaction;
+        // const payloadDecode = atob(payload);
+        // const payloadJson = JSON.parse(payloadDecode);
+        // const payloadData = payloadJson.payload;
+        // console.log(payloadData);
       });
     });
   }
@@ -111,11 +120,21 @@ export class SawtoothService {
   /*---------Calls to REST API---------------*/
   // Get state of address from rest api
   private getState(address) {
-    return this.http.get(`${this.REST_API_BASE_URL}/state/${address}`);
+    return this.http.get<StateResponce>(`${this.REST_API_BASE_URL}/state/${address}`);
   }
 
   private getTransaction(transactionId) {
-    return this.http.get(`${this.REST_API_BASE_URL}/transactions/${transactionId}`)
+    return this.http.get<TransactionResponce>(`${this.REST_API_BASE_URL}/transactions/${transactionId}`);
+  }
+
+  private sendBatchList(data) {
+    const dataArray = JSON.stringify(data);
+    console.log(typeof(dataArray), dataArray);
+    return this.http.post(`${this.REST_API_BASE_URL}/batches`, dataArray , {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/octet-stream'
+      })
+    });
   }
 
   // Post batch list to rest api
@@ -136,6 +155,17 @@ export class SawtoothService {
     .catch((err) => {
       console.log('error in fetch', err);
     });
+  }
+
+
+  public register(action, value) {
+    const payload = this.getEncodedPayload(action, value);
+    const transactionsList = this.getTransactionsList(payload);
+    const batchListBytes = this.getBatchList(transactionsList);
+    this.sendBatchList(batchListBytes)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 
   /*------END Calls to REST API---------------*/
