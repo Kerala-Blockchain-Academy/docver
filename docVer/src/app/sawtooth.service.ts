@@ -22,6 +22,7 @@ export class SawtoothService {
   private address: any;
   private context: any;
   public loggedInStatus: any;
+  public verified = 2;
 
   private FAMILY_NAME = 'docVer';
   private FAMILY_VERSION = '1.0';
@@ -79,7 +80,7 @@ export class SawtoothService {
     });
   }
 
-  public veryfy(address: string) {
+  public veryfy(address: string, newHash: string) {
     this.address = address;
     const state = this.getState(this.address).subscribe((stateResp: StateResponce) => {
       console.log(stateResp);
@@ -95,13 +96,19 @@ export class SawtoothService {
           console.log(tpRequest);
           const payloadJson = JSON.parse(tpRequest.payload);
           this.payloadData = payloadJson;
+          const payloadHash = this.hash(payload).substr(64);
+          if (payloadHash === newHash) {
+            this.verified = 1;
+          } else {
+            this.verified = 0;
+          }
           console.log(this.payloadData);
         },
         (error) => {
           console.log(error);
          },
         () => {
-          this.router.navigate([path]);
+          this.router.navigate(['verifyit']);
         }
       );
     });
