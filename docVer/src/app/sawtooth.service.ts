@@ -22,7 +22,8 @@ export class SawtoothService {
   private address: any;
   private context: any;
   public loggedInStatus: any;
-  status=false
+  status = false;
+  public verified = 2;
 
   private FAMILY_NAME = 'docVer';
   private FAMILY_VERSION = '1.0';
@@ -80,6 +81,40 @@ export class SawtoothService {
     });
   }
 
+  public veryfy(address: string, newHash: string) {
+    this.address = address;
+    const state = this.getState(this.address).subscribe((stateResp: StateResponce) => {
+      console.log(stateResp);
+      const decodedData = atob(stateResp.data);
+      const transaction = this.getTransaction(decodedData).subscribe(
+        (transactionResp: Transaction) => {
+          console.log('transaction', transactionResp);
+          const transactionData = transactionResp.data;
+          const payload = transactionData.payload;
+          console.log(payload);
+          const payloadDecode = atob(payload);
+          const tpRequest: TpRequest = JSON.parse(payloadDecode);
+          console.log(tpRequest);
+          const payloadJson = JSON.parse(tpRequest.payload);
+          this.payloadData = payloadJson;
+          const payloadHash = this.hash(payload).substr(64);
+          if (payloadHash === newHash) {
+            this.verified = 1;
+          } else {
+            this.verified = 0;
+          }
+          console.log(this.payloadData);
+        },
+        (error) => {
+          console.log(error);
+         },
+        () => {
+          this.router.navigate(['verifyit']);
+        }
+      );
+    });
+  }
+
 
   private getDecodedData(responseJSON): string {
     const dataBytes = responseJSON.data;
@@ -131,7 +166,7 @@ export class SawtoothService {
         });
   }
 
- 
+
 
   public register(action, value) {
     const payload = this.getEncodedPayload(action, value);
@@ -275,12 +310,12 @@ private getAddress(values) {
 
   }
 
-  getPayload(){
-    return this.payloadData
+  getPayload() {
+    return this.payloadData;
   }
 
-  logger(){
-    return this.status
+  logger() {
+    return this.status;
 
   }
   /*-------END Creating transactions & batches-----------*/

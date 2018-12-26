@@ -13,17 +13,16 @@ export class AuthGuardService implements CanActivate {
   route: ActivatedRouteSnapshot;
   // path;
   // route;
-  
 
-  constructor(private authService:SawtoothService,private router:Router) {
+
+  constructor(private authService: SawtoothService, private router: Router) {
 
    }
-   canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean{
-     if(this.authService.logger()){
-       return true
-     }
-     else{
-       this.router.navigate(['login'])
+   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+     if (this.authService.logger()) {
+       return true;
+     } else {
+       this.router.navigate(['login']);
      }
    }
 }

@@ -4,7 +4,10 @@ export interface Key {
     pubKey: string;
     priKey: string;
 }
-
+export interface Doc {
+    address: string;
+    data: string;
+}
 export interface PostResponce {
     link: string;
 }

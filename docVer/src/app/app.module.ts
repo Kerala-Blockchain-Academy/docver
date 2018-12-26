@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { VerifyComponent } from './verify/verify.component';
 import { AuthGuardService } from './auth-guard.service';
 import { SawtoothService } from './sawtooth.service';
+import { AuthServices } from './auth.service';
 import { VerifyitComponent } from './verifyit/verifyit.component';
 // =======
 // >>>>>>> e4b05211b6c1df868d3e4eedaedaa6aa55e74a5c
@@ -36,7 +37,7 @@ import { VerifyitComponent } from './verifyit/verifyit.component';
     LoginComponent,
 // <<<<<<< HEAD
     ListofComponent,
-   
+
     ButtonsComponent,
 
 // <<<<<<< HEAD
@@ -61,21 +62,23 @@ VerifyitComponent
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot([
-        {path: 'verify', canActivate:[AuthGuardService], component: VerifyComponent},
-        {path: 'verifyit', canActivate:[AuthGuardService], component: VerifyitComponent},
-        {path: 'Generate/deathForm', canActivate:[AuthGuardService], component: DeathFormComponent},
-        {path: 'Generate/birthForm', canActivate:[AuthGuardService], component: BirthFormComponent},
-        {path: 'Search/birthForm' , canActivate:[AuthGuardService], component:BirthSearchComponent},
-        {path: 'Search/deathForm' , canActivate:[AuthGuardService], component:DeathSearchComponent},
+        {path: 'verifyit', component: VerifyitComponent},
+        {path: 'verify', component: VerifyComponent},
 
-        {path: 'docList', canActivate:[AuthGuardService], component: ListofComponent},
-        {path: 'register', component: RegisterComponent},
+        {path: 'Generate/deathForm', canActivate: [AuthGuardService], component: DeathFormComponent},
+        {path: 'Generate/birthForm', component: BirthFormComponent},
+        {path: 'Search/birthForm'  , canActivate: [AuthGuardService], component: BirthSearchComponent},
+        {path: 'Search/deathForm' , canActivate: [AuthGuardService], component: DeathSearchComponent},
+
+
+        {path: 'docList', canActivate: [AuthGuardService], component: ListofComponent},
+        {path: 'register'    , component: RegisterComponent},
         {path: 'login', component: LoginComponent},
         {path: '', redirectTo: 'login', pathMatch: 'full'},
         {path: '**', redirectTo: 'login', pathMatch: 'full'}
     ])
   ],
-  providers: [AuthGuardService,SawtoothService],
+  providers: [AuthGuardService, AuthServices],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
