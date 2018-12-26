@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 })
 
 export class SawtoothService {
-
+  errorMessage
   private signer: any;
   private publicKey: any;
   private privateKey: any;
@@ -102,6 +102,7 @@ export class SawtoothService {
         },
         (error) => {
           console.log(error);
+          this.errorMessage=error.statusText
          },
         () => {
           this.router.navigate([path]);
@@ -331,6 +332,13 @@ private getAddress(values) {
 
     return batchListBytes;
 
+  }
+
+  getPayload(){
+    return this.payloadData
+  }
+  getError(){
+    return this.errorMessage
   }
 
 

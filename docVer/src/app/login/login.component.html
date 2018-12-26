@@ -1,8 +1,19 @@
-<div class="toCenter">
+<!-- <div class="toCenter">
   <form action="">
     <h3 style="text-align:center">Login</h3>
-    <input type="file" class="form-control" id="usr" >
-    <button type="submit" class=" btn btn-dark" (click)= 'buttonClick($event)' >Login</button>
+    <input type="file" class="form-control" #usr (change)=fileChanged($event) >
+    <button type="submit" class=" btn btn-dark" [(ngModel)]="model.fileupload" (click)= 'buttonClick($event)' >Login</button>
   </form>
 
+</div> -->
+
+
+<!-- <div class="Block">
+  <label id="lbl">File </label>
+  <input #fileInput type='file'/>
 </div>
+<button type="button" class="btn btn-primary" 
+     (click)="uploadDocument()">Upload File</button> -->
+
+     <input #myInput type="file" placeholder="File Name" name="filename" (change)="onChange($event)">
+

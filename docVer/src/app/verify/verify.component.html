@@ -1,0 +1,38 @@
+<div *ngIf="docDetails?.statusText==='Not Found'"  class="alert alert-danger">The data entered does not exist</div>
+
+
+
+
+  <div *ngIf="docDetails?.docType==='birthForm'" class="panel panel-default">
+    <div class="panel-heading">{{docDetails?.docType | titlecase}}</div>
+    <div class="panel-body">
+      <p>{{docDetails?.dateOfBirth}}</p> 
+      <p>{{docDetails?.nameOfChild}}</p> 
+      <p>{{docDetails?.nameOfFather}}</p> 
+      <p>{{docDetails?.nameOfMother}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="docDetails?.docType==='deathForm'" class="panel panel-default">
+    <div class="panel-heading">{{docDetails?.docType | titlecase}}</div>
+    <div class="panel-body">
+      <p>{{docDetails?.dateOdDeath}}</p> 
+      <p>{{docDetails?.nameOfDeceased}}</p> 
+      <p>{{docDetails?.nameOfFather}}</p> 
+      <p>{{docDetails?.nameOfMother}}</p>
+    </div>
+  </div>
+
+
+  <div *ngIf="docDetails?.docType==='marriageForm'" class="panel panel-default">
+    <div class="panel-heading">{{docDetails?.docType | titlecase}}</div>
+    <div class="panel-body">
+      <p>{{docDetails?.nameOfHusband}}</p> 
+      
+      <p>{{docDetails?.husbandDOB}}</p>
+      <p>{{docDetails?.nameOfWife}}</p> 
+      <p>{{docDetails?.wifeDOB}}</p>
+      <p>{{docDetails?.regDate}}</p> 
+      <p>{{docDetails?.nameOfMother}}</p>
+    </div>
+  </div>
