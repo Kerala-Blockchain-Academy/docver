@@ -29,12 +29,6 @@ export class BirthSearchComponent implements OnInit {
     const strData = JSON.stringify(data);
     const path = 'verify';
     this.search.search(strData, path);
-    const t=this.search.getError()
-    console.log(t)
-
   }
 
-
-
-  
 }

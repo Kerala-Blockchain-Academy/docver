@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,17 +55,15 @@ VerifyComponent
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpModule,
     HttpClientModule,
     RouterModule.forRoot([
         {path: 'verify', component: VerifyComponent},
         {path: 'Generate/marriageForm', component: MarriageFormComponent},
         {path: 'Generate/deathForm', component: DeathFormComponent},
         {path: 'Generate/birthForm', component: BirthFormComponent},
-        {path:'Search/birthForm' , component:BirthSearchComponent},
-        {path:'Search/deathForm' , component:DeathSearchComponent},
-        {path:'Search/marriageForm' , component:MarriageSearchComponent},
-        
+        {path: 'Search/birthForm' , component:BirthSearchComponent},
+        {path: 'Search/deathForm' , component:DeathSearchComponent},
+        {path: 'Search/marriageForm' , component:MarriageSearchComponent},
         {path: 'docList', component: ListofComponent},
         {path: 'register', component: RegisterComponent},
         {path: 'login', component: LoginComponent},

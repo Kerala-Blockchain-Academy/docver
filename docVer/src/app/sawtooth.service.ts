@@ -5,7 +5,6 @@ import * as protobuf from 'sawtooth-sdk/protobuf';
 import {Secp256k1PrivateKey} from 'sawtooth-sdk/signing/secp256k1';
 import { TextEncoder, TextDecoder } from 'text-encoding/lib/encoding';
 import { Buffer } from 'buffer/';
-import { Http } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { delay } from 'q';
 import { MessageJson, PostResp, StateResponce,  TransactionStatus, Transaction, Payload, TpRequest } from './model';
@@ -17,10 +16,9 @@ import { Router } from '@angular/router';
 })
 
 export class SawtoothService {
-  errorMessage
   private signer: any;
-  private publicKey: any;
-  private privateKey: any;
+  public publicKey: any;
+  public privateKey: any;
   private address: any;
   private context: any;
   public loggedInStatus: any;
@@ -36,10 +34,6 @@ export class SawtoothService {
   public payloadData: Payload;
 
   constructor(private http: HttpClient, private router: Router ) {
-    // Inside the setCurrentTransactor function:
-    // Set the this.signer property
-    // Set the this.publicKey property
-    // Set the this.address property
     this.loggedInStatus = this.setCurrentTransactor(this.privateKeyHex);
 
   }
@@ -53,33 +47,8 @@ export class SawtoothService {
     return true;
   }
 
-  private hash(v) {
+  public hash(v) {
     return createHash('sha512').update(v).digest('hex');
-  }
-
-  public async sendData(action, value) {
-    // Encode the payload
-    const payload = this.getEncodedPayload(action, value);
-    // Create a list of transactions.
-    // In our case, there would just be one transaction in the list
-    const transactionsList = this.getTransactionsList(payload);
-    // Create a list of batches. In our case, one batch only in the list
-    const batchList = this.getBatchList(transactionsList);
-
-    // Send the batch to REST API
-    await this.sendToRestAPI(batchList)
-      .then((resp) => {
-        console.log('sendToRestAPI response', resp);
-        return {
-          payload: payload,
-          transactionList : transactionsList,
-          batchList: batchList,
-          response: resp  };
-      })
-      .catch((error) => {
-        console.log('error here', error);
-        return error;
-      });
   }
 
   public search(data, path) {
@@ -102,7 +71,6 @@ export class SawtoothService {
         },
         (error) => {
           console.log(error);
-          this.errorMessage=error.statusText
          },
         () => {
           this.router.navigate([path]);
@@ -111,12 +79,6 @@ export class SawtoothService {
     });
   }
 
-  // Count button will call this function directly
-  // For Count button calls, 'batchListBytes' will be null
-  public async sendToRestAPI(batchListBytes): Promise<any> {
-      // POST batch list
-      return this.postBatchList(batchListBytes);
-  }
 
   private getDecodedData(responseJSON): string {
     const dataBytes = responseJSON.data;
@@ -168,26 +130,7 @@ export class SawtoothService {
         });
   }
 
-  // Post batch list to rest api
-  private postBatchList(batchListBytes): Promise<any> {
-    // Complete here
-    console.log(batchListBytes);
-    // return window.fetch('http://localhost:4200/api/batches', {
-      return window.fetch(`${this.REST_API_BASE_URL}/batches`, {
-      method: 'POST',
-      headers: {
-        'Content-Type' : 'application/octet-stream'
-      },
-      body: batchListBytes
-    })
-    .then((resp) => {
-      console.log('post response', resp);
-    })
-    .catch((err) => {
-      console.log('error in fetch', err);
-    });
-  }
-
+ 
 
   public register(action, value) {
     const payload = this.getEncodedPayload(action, value);
@@ -229,9 +172,8 @@ export class SawtoothService {
 
   /*---Signing & Addressing-------------------------*/
 
-  private setCurrentTransactor(pkInput): boolean {
+  public setCurrentTransactor(pkInput): boolean {
     try {
-      // Complete here
       this.context = createContext('secp256k1');
       this.privateKey = Secp256k1PrivateKey.fromHex(pkInput);
       this.signer = new CryptoFactory(this.context).newSigner(this.privateKey);
@@ -304,8 +246,6 @@ private getAddress(values) {
   }
 
   private getBatchList(transactionsList): any {
-    // Complete here
-
     // batchHeader
     const bHB = {
       signerPublicKey: this.publicKey,
@@ -337,11 +277,6 @@ private getAddress(values) {
   getPayload(){
     return this.payloadData
   }
-  getError(){
-    return this.errorMessage
-  }
-
-
   /*-------END Creating transactions & batches-----------*/
 
 }
