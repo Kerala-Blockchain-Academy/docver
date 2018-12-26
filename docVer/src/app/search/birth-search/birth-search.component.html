@@ -32,12 +32,13 @@
           <option value="female">Female</option>
           
         </select>
-  
+
+        <br><span *ngIf="!f.valid&&f.touched" class="alert alert-danger">Please check the feild with red border</span>
       </div>
   
 
       
-
+      
   
     
     <br>

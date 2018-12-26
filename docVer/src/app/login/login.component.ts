@@ -41,6 +41,8 @@ login(data) {
         this.log.setCurrentTransactor(this.key.priKey);
         if (this.log.publicKey === this.key.pubKey) {
           console.log('logedin');
+          this.log.status=true;
+          this.router.navigate(['docList'])
         }
       }
     }

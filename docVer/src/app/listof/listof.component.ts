@@ -17,7 +17,7 @@ export class ListofComponent implements OnInit {
   public documents: listObj[] = [
     {name: 'Birth Certificate', path: 'birthForm'},
     {name: 'Death Certificate', path: 'deathForm'},
-    {name: 'Marriage Certificate', path: 'marriageForm'}
+
   ]
   // public documents:formlist[]=[
   //   new formlist('Birth Certificate','birthForum'),

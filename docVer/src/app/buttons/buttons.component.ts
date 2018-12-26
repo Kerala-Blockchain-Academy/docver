@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Router } from '@angular/router'
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 interface buttonAction{
   action: String,
@@ -27,8 +28,11 @@ export class ButtonsComponent implements OnInit {
   buttonClick(event):void {
     event.preventDefault();
     console.log(this.action);
+    if(this.action.action==='Verify'){
+      this.router.navigate([ 'verifyit' ])
+    }
 
-    this.router.navigate([ this.action.action + '/' + this.action.path]);
+    else{this.router.navigate([ this.action.action + '/' + this.action.path])};
   }
 
   changeStyle(): void {

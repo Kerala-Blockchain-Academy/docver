@@ -11,7 +11,7 @@ import { RegisterComponent } from './register/register.component';
 // =======
 import { ListofComponent } from './listof/listof.component';
 // <<<<<<< HEAD
-import { NewDocumentComponent } from './new-document/new-document.component';
+
 import { ButtonsComponent } from './buttons/buttons.component';
 import { RouterModule } from '@angular/router';
 import { BirthFormComponent } from './forms/birth-form/birth-form.component';
@@ -24,6 +24,7 @@ import { DeathSearchComponent } from './search/death-search/death-search.compone
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyComponent } from './verify/verify.component';
 import { AuthGuardService } from './auth-guard.service';
+import { SawtoothService } from './sawtooth.service';
 import { AuthServices } from './auth.service';
 import { VerifyitComponent } from './verifyit/verifyit.component';
 // =======
@@ -36,7 +37,7 @@ import { VerifyitComponent } from './verifyit/verifyit.component';
     LoginComponent,
 // <<<<<<< HEAD
     ListofComponent,
-    NewDocumentComponent,
+
     ButtonsComponent,
 
 // <<<<<<< HEAD
