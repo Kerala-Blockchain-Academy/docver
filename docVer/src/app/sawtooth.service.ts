@@ -22,6 +22,7 @@ export class SawtoothService {
   private address: any;
   private context: any;
   public loggedInStatus: any;
+  status=false
 
   private FAMILY_NAME = 'docVer';
   private FAMILY_VERSION = '1.0';
@@ -276,6 +277,11 @@ private getAddress(values) {
 
   getPayload(){
     return this.payloadData
+  }
+
+  logger(){
+    return this.status
+
   }
   /*-------END Creating transactions & batches-----------*/
 
