@@ -79,6 +79,34 @@ export class SawtoothService {
     });
   }
 
+  public veryfy(address: string) {
+    this.address = address;
+    const state = this.getState(this.address).subscribe((stateResp: StateResponce) => {
+      console.log(stateResp);
+      const decodedData = atob(stateResp.data);
+      const transaction = this.getTransaction(decodedData).subscribe(
+        (transactionResp: Transaction) => {
+          console.log('transaction', transactionResp);
+          const transactionData = transactionResp.data;
+          const payload = transactionData.payload;
+          console.log(payload);
+          const payloadDecode = atob(payload);
+          const tpRequest: TpRequest = JSON.parse(payloadDecode);
+          console.log(tpRequest);
+          const payloadJson = JSON.parse(tpRequest.payload);
+          this.payloadData = payloadJson;
+          console.log(this.payloadData);
+        },
+        (error) => {
+          console.log(error);
+         },
+        () => {
+          this.router.navigate([path]);
+        }
+      );
+    });
+  }
+
 
   private getDecodedData(responseJSON): string {
     const dataBytes = responseJSON.data;
@@ -130,7 +158,7 @@ export class SawtoothService {
         });
   }
 
- 
+
 
   public register(action, value) {
     const payload = this.getEncodedPayload(action, value);
@@ -274,8 +302,8 @@ private getAddress(values) {
 
   }
 
-  getPayload(){
-    return this.payloadData
+  getPayload() {
+    return this.payloadData;
   }
   /*-------END Creating transactions & batches-----------*/
 

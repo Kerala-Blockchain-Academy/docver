@@ -26,7 +26,7 @@ fileChanged(e) {
     this.extension = e.target.files[0].name.split('.').pop().toLowerCase();
 }
 
-login(data){
+login(data) {
   const fileReader = new FileReader();
   fileReader.onload = (e) => {
     if (this.extension === 'json') {
