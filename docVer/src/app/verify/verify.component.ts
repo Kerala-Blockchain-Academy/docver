@@ -11,7 +11,7 @@ export class VerifyComponent implements OnInit {
   constructor(private data:SawtoothService) { }
 
   ngOnInit() {
-    const details=this.data.getPayload()
+    this.docDetails=this.data.getPayload()
     
 
   }

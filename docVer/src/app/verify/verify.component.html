@@ -6,6 +6,7 @@
   <div *ngIf="docDetails?.docType==='birthForm'" class="panel panel-default">
     <div class="panel-heading">{{docDetails?.docType | titlecase}}</div>
     <div class="panel-body">
+      <p>{{docDetails?.dateOfBirth}}</p>
       <p>{{docDetails?.dateOfBirth}}</p> 
       <p>{{docDetails?.nameOfChild}}</p> 
       <p>{{docDetails?.nameOfFather}}</p> 
@@ -16,7 +17,7 @@
   <div *ngIf="docDetails?.docType==='deathForm'" class="panel panel-default">
     <div class="panel-heading">{{docDetails?.docType | titlecase}}</div>
     <div class="panel-body">
-      <p>{{docDetails?.dateOdDeath}}</p> 
+      <p>{{docDetails?.regDate}}</p> 
       <p>{{docDetails?.nameOfDeceased}}</p> 
       <p>{{docDetails?.nameOfFather}}</p> 
       <p>{{docDetails?.nameOfMother}}</p>
