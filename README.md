@@ -1,12 +1,9 @@
-##Document Verification using Sawtooth
+# Document Verification using Sawtooth
 
 	 	 	 	
-# Getting started
+## Getting started
 
-`git clone https://gitlab.com/abhiramts007/docver-chd-group-project`
-Or
-`git clone https://github.com/AbhiramTS/chdProject`
-
+`git clone https://github.com/Kerala-Blockchain-Academy/docver`
 
 `sudo docker-compose up`
 
