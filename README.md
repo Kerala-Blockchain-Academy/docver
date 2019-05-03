@@ -16,7 +16,7 @@ Simple document verification example of a Sawtooth application.
 
 ## Introduction
 
-This is a minimal example of a Sawtooth application, with a javascript based transaction processor and angular based client. This example demonstrates a simple use case, where officials can register for birth/death, and generate a certificate which can then be reverified at any point of time in the feature.
+This is a minimal example of a Sawtooth application, with a javascript based transaction processor and angular based client. This example demonstrates a simple use case, where officials can register for birth/death, and generate a certificate which can then be reverified at any point of time in the future.
 
 1. Register for birth/death certificate
 2. Generate the certificate
